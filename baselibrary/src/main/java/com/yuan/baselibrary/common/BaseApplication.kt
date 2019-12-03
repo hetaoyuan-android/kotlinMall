@@ -5,7 +5,7 @@ import com.yuan.baselibrary.injection.component.AppComponent
 import com.yuan.baselibrary.injection.component.DaggerAppComponent
 import com.yuan.baselibrary.injection.module.AppModule
 
-class BaseApplication: Application() {
+open class BaseApplication: Application() {
 
      lateinit var appComponent: AppComponent
 
