@@ -1,7 +1,9 @@
 package com.yuan.user.services.impl
 
 import com.yuan.baselibrary.data.protocol.BaseResp
+import com.yuan.baselibrary.ext.convertBoolean
 import com.yuan.baselibrary.rx.BaseExcaption
+import com.yuan.baselibrary.rx.BaseFuncBoolean
 import com.yuan.user.data.repository.UserRepository
 import com.yuan.user.services.UserServices
 import rx.Observable
@@ -15,15 +17,6 @@ class UserServicesImpl @Inject constructor(): UserServices {
 
     override fun register(mobile: String, verifyCode: String, pwd: String): Observable<Boolean> {
         return repository.register(mobile, pwd, verifyCode)
-            .flatMap(object : Func1<BaseResp<String>, Observable<Boolean>>{
-                override fun call(t: BaseResp<String>?): Observable<Boolean> {
-                    if (t != null) {
-                        if (t.status != 0) {
-                            return Observable.error(BaseExcaption(t.status, t.message))
-                        }
-                    }
-                    return Observable.just(true)
-                }
-            })
+            .convertBoolean()
     }
 }

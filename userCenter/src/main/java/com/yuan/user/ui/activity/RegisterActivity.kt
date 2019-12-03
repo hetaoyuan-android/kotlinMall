@@ -1,6 +1,8 @@
 package com.yuan.user.ui.activity
 
 import android.os.Bundle
+import android.view.View
+import com.yuan.baselibrary.ext.onClick
 import com.yuan.baselibrary.ui.activity.BaseMvpActivity
 import com.yuan.user.R
 import com.yuan.user.injection.component.DaggerUserComponent
@@ -11,15 +13,18 @@ import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
-    override fun onRegisterResult(result: Boolean) {
-        toast("注册成功")
+    override fun injectComponent() {
+        DaggerUserComponent.builder().activityComponent(activtyComponent).userModule(UserModule()).build().inject(this)
+        mPresenter.mView = this
+    }
+
+    override fun onRegisterResult(result: String) {
+            toast(result)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-        initInjection()
 
         mRegisterBtn.setOnClickListener {
             mPresenter.register(
@@ -27,12 +32,13 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
                 mPwdEt.text.toString()
             )
         }
-    }
 
-    private fun initInjection() {
-        DaggerUserComponent.builder().activityComponent(activtyComponent).userModule(UserModule()).build().inject(this)
-        mPresenter.mView = this
-
-
+//        mRegisterBtn.onClick(object: View.OnClickListener {
+//            override fun onClick(v: View?) {
+//            }
+//        } )
+//        mRegisterBtn.onClick {
+//
+//        }
     }
 }

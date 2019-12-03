@@ -7,11 +7,13 @@ import com.yuan.user.presenter.view.RegisterView
 import com.yuan.user.services.UserServices
 import com.yuan.user.services.impl.UserServicesImpl
 import javax.inject.Inject
+import javax.inject.Named
 
 class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
 
     @Inject
     lateinit var userServices: UserServices
+
 
     /**
      * 注册
@@ -23,10 +25,10 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
         userServices.register(mobile, verifyCode, pwd)
             .execute(object : BaseSubscriber<Boolean>() {
                 override fun onNext(t: Boolean) {
-                    super.onNext(t)
-                    mView.onRegisterResult(t)
+                    if(t)
+                    mView.onRegisterResult("注册成功")
                 }
-            })
+            },lifecycleProvider)
     }
 
     /**
