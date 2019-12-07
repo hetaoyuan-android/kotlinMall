@@ -1,14 +1,11 @@
 package com.yuan.user.presenter
 
-import android.util.Log
 import com.yuan.baselibrary.ext.execute
 import com.yuan.baselibrary.presenter.BasePresenter
 import com.yuan.baselibrary.rx.BaseSubscriber
 import com.yuan.user.presenter.view.RegisterView
 import com.yuan.user.services.UserServices
-import com.yuan.user.services.impl.UserServicesImpl
 import javax.inject.Inject
-import javax.inject.Named
 
 class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
 

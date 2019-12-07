@@ -5,6 +5,7 @@ import android.view.View
 import com.kotlin.base.utils.NetWorkUtils
 import com.kotlin.base.widgets.VerifyButton
 import com.yuan.baselibrary.common.AppManager
+import com.yuan.baselibrary.ext.enable
 import com.yuan.baselibrary.ext.onClick
 import com.yuan.baselibrary.ui.activity.BaseMvpActivity
 import com.yuan.user.R
@@ -15,8 +16,7 @@ import com.yuan.user.presenter.view.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
 
-class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
-
+class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, View.OnClickListener {
 
     private var pressTime: Long = 0
 
@@ -33,22 +33,7 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        mRegisterBtn.setOnClickListener {
-            if (checkNetWork()) {
-                mPresenter.register(
-                    mMobileEt.text.toString(), mVerifyCodeEt.text.toString(),
-                    mPwdEt.text.toString()
-                )
-            } else {
-                toast("网络不可用")
-            }
-        }
-
-        mGetVerifyCodeBtn.onClick {
-            mGetVerifyCodeBtn.requestSendVerifyNumber()
-        }
-
-
+        initView()
 //        mRegisterBtn.onClick(object: View.OnClickListener {
 //            override fun onClick(v: View?) {
 //            }
@@ -56,6 +41,39 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
 //        mRegisterBtn.onClick {
 //
 //        }
+    }
+
+    private fun initView() {
+
+        mRegisterBtn.enable(mMobileEt, {isBtnEnable()})
+        mRegisterBtn.enable(mVerifyCodeEt, {isBtnEnable()})
+        mRegisterBtn.enable(mPwdEt, {isBtnEnable()})
+        mRegisterBtn.enable(mPwdConfirmEt, {isBtnEnable()})
+
+        mVerifyCodeBtn.onClick(this)
+        mRegisterBtn.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        if (v != null) {
+            when(v.id) {
+                R.id.mVerifyCodeBtn ->{
+                    mVerifyCodeBtn.requestSendVerifyNumber()
+                    toast("发送验证码成功")
+                }
+
+                R.id.mRegisterBtn ->{
+                    if (checkNetWork()) {
+                        mPresenter.register(
+                            mMobileEt.text.toString(), mVerifyCodeEt.text.toString(),
+                            mPwdEt.text.toString()
+                        )
+                    } else {
+                        toast("网络不可用")
+                    }
+                }
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -66,5 +84,12 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
         } else {
             AppManager.instance.exitApp(this)
         }
+    }
+
+    private fun isBtnEnable(): Boolean {
+        return mMobileEt.text.isNullOrEmpty().not() &&
+                mVerifyCodeEt.text.isNullOrEmpty().not() &&
+                mPwdEt.text.isNullOrEmpty().not() &&
+                mPwdConfirmEt.text.isNullOrEmpty().not()
     }
 }
