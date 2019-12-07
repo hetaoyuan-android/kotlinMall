@@ -2,6 +2,9 @@ package com.yuan.user.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.kotlin.base.utils.NetWorkUtils
+import com.kotlin.base.widgets.VerifyButton
+import com.yuan.baselibrary.common.AppManager
 import com.yuan.baselibrary.ext.onClick
 import com.yuan.baselibrary.ui.activity.BaseMvpActivity
 import com.yuan.user.R
@@ -13,13 +16,17 @@ import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
+
+
+    private var pressTime: Long = 0
+
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(activtyComponent).userModule(UserModule()).build().inject(this)
         mPresenter.mView = this
     }
 
     override fun onRegisterResult(result: String) {
-            toast(result)
+        toast(result)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +34,20 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
         setContentView(R.layout.activity_register)
 
         mRegisterBtn.setOnClickListener {
-            mPresenter.register(
-                mMobileEt.text.toString(), mVerifyCodeEt.text.toString(),
-                mPwdEt.text.toString()
-            )
+            if (checkNetWork()) {
+                mPresenter.register(
+                    mMobileEt.text.toString(), mVerifyCodeEt.text.toString(),
+                    mPwdEt.text.toString()
+                )
+            } else {
+                toast("网络不可用")
+            }
         }
+
+        mGetVerifyCodeBtn.onClick {
+            mGetVerifyCodeBtn.requestSendVerifyNumber()
+        }
+
 
 //        mRegisterBtn.onClick(object: View.OnClickListener {
 //            override fun onClick(v: View?) {
@@ -40,5 +56,15 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
 //        mRegisterBtn.onClick {
 //
 //        }
+    }
+
+    override fun onBackPressed() {
+        val time = System.currentTimeMillis()
+        if (time - pressTime > 2000) {
+            toast("再按一次退出程序")
+            pressTime = time
+        } else {
+            AppManager.instance.exitApp(this)
+        }
     }
 }

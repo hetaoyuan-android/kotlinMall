@@ -1,5 +1,6 @@
 package com.yuan.user.presenter
 
+import android.util.Log
 import com.yuan.baselibrary.ext.execute
 import com.yuan.baselibrary.presenter.BasePresenter
 import com.yuan.baselibrary.rx.BaseSubscriber
@@ -22,8 +23,13 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
         /**
          * 业务逻辑
          */
+//        if (!checkNetWork()) {
+//            Log.e("NetWork","网络不可用")
+//            return
+//        }
+        mView.showLoading()
         userServices.register(mobile, verifyCode, pwd)
-            .execute(object : BaseSubscriber<Boolean>() {
+            .execute(object : BaseSubscriber<Boolean>(mView) {
                 override fun onNext(t: Boolean) {
                     if(t)
                     mView.onRegisterResult("注册成功")

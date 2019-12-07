@@ -12,6 +12,7 @@ import com.yuan.baselibrary.injection.module.AppModule
 import com.yuan.baselibrary.injection.module.LifecycleProviderModule
 import com.yuan.baselibrary.presenter.BasePresenter
 import com.yuan.baselibrary.presenter.view.BaseView
+import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
 open abstract class BaseMvpFragment<T:BasePresenter<*>>:BaseFragment(), BaseView {
@@ -21,7 +22,8 @@ open abstract class BaseMvpFragment<T:BasePresenter<*>>:BaseFragment(), BaseView
     override fun hideLoading() {
     }
 
-    override fun onError() {
+    override fun onError(text: String) {
+        toast(text)
     }
 
     @Inject
