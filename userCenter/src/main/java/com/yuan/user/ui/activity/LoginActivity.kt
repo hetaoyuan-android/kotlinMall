@@ -2,6 +2,7 @@ package com.yuan.user.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.kotlin.user.utils.UserPrefsUtils
 import com.yuan.baselibrary.ext.enable
 import com.yuan.baselibrary.ext.onClick
 import com.yuan.baselibrary.ui.activity.BaseMvpActivity
@@ -41,6 +42,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
 
         mLoginBtn.onClick(this)
         mHeaderBar.getRightView().onClick(this)
+        mForgetPwdTv.onClick(this)
     }
 
     override fun onClick(v: View?) {
@@ -50,6 +52,10 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
                     mPresenter.login(mMobileEt.text.toString(), mPwdEt.text.toString(), "" )
                 }
                 R.id.mRightTv ->{startActivity<RegisterActivity>()}
+
+                R.id.mForgetPwdTv ->{
+                    startActivity<ForgetActivity>()
+                }
             }
         }
     }
@@ -61,5 +67,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
 
     override fun onLoginResult(result: UserInfo) {
         toast("登录成功")
+        UserPrefsUtils.putUserInfo(result)
+        startActivity<UserInfoActivity>()
     }
 }

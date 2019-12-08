@@ -17,7 +17,7 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
      */
     fun login(mobile: String, pwd: String,  pushId: String) {
         mView.showLoading()
-        userServices.login(mobile, pushId, pwd)
+        userServices.login(mobile, pwd, pushId)
             .execute(object : BaseSubscriber<UserInfo>(mView) {
                 override fun onNext(t: UserInfo) {
                     mView.onLoginResult(t)

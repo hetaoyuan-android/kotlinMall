@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name="com.yuan.user.ui.activity.RegisterActivity" />
+        <activity android:name="com.yuan.user.ui.activity.ForgetActivity" />
+        <activity android:name="com.yuan.user.ui.activity.ResetActivity" />
+        <activity android:name="com.yuan.user.ui.activity.UserInfoActivity"/>
     </application>
 
 </manifest>

@@ -1,9 +1,7 @@
 package com.yuan.user.data.api
 
 import com.yuan.baselibrary.data.protocol.BaseResp
-import com.yuan.user.data.protocol.LoginReq
-import com.yuan.user.data.protocol.RegisterReq
-import com.yuan.user.data.protocol.UserInfo
+import com.yuan.user.data.protocol.*
 import retrofit2.http.Body
 import retrofit2.http.POST
 import rx.Observable
@@ -14,4 +12,13 @@ interface UserApi {
 
     @POST("userCenter/login")
     fun login(@Body req: LoginReq): Observable<BaseResp<UserInfo>>
+
+    @POST("userCenter/forgetPwd")
+    fun forgetPwd(@Body req: ForgetPwdReq): Observable<BaseResp<String>>
+
+    @POST("userCenter/resetPwd")
+    fun resetPwd(@Body req: ResetPwdReq): Observable<BaseResp<String>>
+
+    @POST("userCenter/editUser")
+    fun editUser(@Body req: EditUserReq): Observable<BaseResp<UserInfo>>
 }
