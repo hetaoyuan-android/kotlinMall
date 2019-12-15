@@ -1,6 +1,5 @@
 package com.yuan.kotlinmall.ui.fragment
 
-import android.app.Application
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -10,7 +9,6 @@ import com.kotlin.base.widgets.BannerImageLoader
 import com.kotlin.mall.common.*
 import com.kotlin.mall.ui.adapter.HomeDiscountAdapter
 import com.kotlin.mall.ui.adapter.TopicAdapter
-import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.yuan.baselibrary.ui.fragment.BaseFragment

@@ -4,20 +4,18 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
+import com.yuan.goodscenter.ui.fragment.CategoryFragment
 import com.yuan.kotlinmall.R
 import com.yuan.kotlinmall.ui.fragment.HomeFragment
 import com.yuan.kotlinmall.ui.fragment.MeFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
     private val mStack = Stack<Fragment>()
     private val mHomeFragment by lazy { HomeFragment() }
-    private val mCategoryFragment by lazy { HomeFragment() }
+    private val mCategoryFragment by lazy { CategoryFragment() }
     private val mCartFragment by lazy { HomeFragment() }
     private val mMsgFragment by lazy { HomeFragment() }
     private val mMeFragment by lazy { MeFragment() }
