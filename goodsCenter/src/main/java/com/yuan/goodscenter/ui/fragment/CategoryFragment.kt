@@ -17,8 +17,10 @@ import com.kotlin.goods.ui.adapter.SecondCategoryAdapter
 import com.kotlin.goods.ui.adapter.TopCategoryAdapter
 import com.yuan.baselibrary.ui.fragment.BaseMvpFragment
 import com.yuan.goodscenter.R
+import com.yuan.goodscenter.ui.adtivity.GoodsActivity
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.jetbrains.anko.support.v4.act
+import org.jetbrains.anko.support.v4.startActivity
 
 class CategoryFragment: BaseMvpFragment<CategoryPresenter>(), CategoryView {
     //一级分类Adapter
@@ -64,6 +66,7 @@ class CategoryFragment: BaseMvpFragment<CategoryPresenter>(), CategoryView {
         mSecondCategoryRv.adapter = secondAdapter
         secondAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Category> {
             override fun onItemClick(item: Category, position: Int) {
+                startActivity<GoodsActivity>("categoryId" to item.id)
             }
         })
     }
@@ -72,10 +75,10 @@ class CategoryFragment: BaseMvpFragment<CategoryPresenter>(), CategoryView {
        加载数据
     */
     private fun loadData(parentId: Int = 0) {
-//        if (parentId != 0) {
-//            mMultiStateView.viewState
-//
-//        }
+        if (parentId != 0) {
+            mMultiStateView.viewState
+
+        }
 
         mPresenter.getCategory(parentId)
 
