@@ -15,7 +15,4 @@ open class BasePresenter<T:BaseView> {
     @Inject
     lateinit var context: Context
 
-    fun checkNetWork(): Boolean {
-        return NetWorkUtils.isNetWorkAvailable(context)
-    }
 }

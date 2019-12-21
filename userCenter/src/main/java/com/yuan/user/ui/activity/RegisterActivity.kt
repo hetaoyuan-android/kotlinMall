@@ -63,18 +63,15 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
                 }
 
                 R.id.mRegisterBtn ->{
-                    if (checkNetWork()) {
+
                         mPresenter.register(
                             mMobileEt.text.toString(), mVerifyCodeEt.text.toString(),
-                            mPwdEt.text.toString()
-                        )
-                    } else {
-                        toast("网络不可用")
+                            mPwdEt.text.toString())
+
                     }
                 }
             }
         }
-    }
 
     override fun onBackPressed() {
         val time = System.currentTimeMillis()

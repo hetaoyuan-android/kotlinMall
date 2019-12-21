@@ -53,17 +53,14 @@ class ForgetActivity : BaseMvpActivity<ForgetPresenter>(), ForgetView, View.OnCl
                 }
 
                 R.id.mNextBtn ->{
-                    if (checkNetWork()) {
+
                         mPresenter.forgetPwd(
                             mMobileEt.text.toString(), mVerifyCodeEt.text.toString()
                         )
-                    } else {
-                        toast("网络不可用")
                     }
                 }
             }
         }
-    }
     private fun isBtnEnable(): Boolean {
         return mMobileEt.text.isNullOrEmpty().not() &&
                 mVerifyCodeEt.text.isNullOrEmpty().not()

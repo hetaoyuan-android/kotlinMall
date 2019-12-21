@@ -52,7 +52,6 @@ class  ResetActivity : BaseMvpActivity<ResetPresenter>(), ResetView, View.OnClic
         if (v != null) {
             when(v.id) {
                 R.id.mConfirmBtn ->{
-                    if (checkNetWork()) {
                         if (mPwdEt.text.toString() != mPwdConfirmEt.text.toString()) {
                             toast("密码不一致")
                             return
@@ -60,12 +59,10 @@ class  ResetActivity : BaseMvpActivity<ResetPresenter>(), ResetView, View.OnClic
                         mPresenter.resetPwd(
                             intent.getStringExtra("mobile"), mPwdEt.text.toString()
                         )
-                    } else {
-                        toast("网络不可用")
                     }
                 }
             }
-        }
+
     }
     private fun isBtnEnable(): Boolean {
         return mPwdEt.text.isNullOrEmpty().not() &&

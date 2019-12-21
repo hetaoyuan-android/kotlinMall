@@ -92,4 +92,9 @@ dependencies {
     api "com.github.Kennyc1012:MultiStateView:$multi_state_view_version"
     //上下拉刷新
     api 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
+
+    //Kotlin Bus
+    api 'com.eightbitlab:rxbus:1.0.2'
+    //FlowLayout
+    api 'com.zhy:flowlayout-lib:1.0.3'
 }

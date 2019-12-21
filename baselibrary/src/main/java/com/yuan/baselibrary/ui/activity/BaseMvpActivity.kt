@@ -54,7 +54,7 @@ open abstract class BaseMvpActivity<T:BasePresenter<*>>:BaseActivity(), BaseView
             .build()
     }
 
-        fun checkNetWork(): Boolean {
-        return NetWorkUtils.isNetWorkAvailable(this)
-    }
+//        fun checkNetWork(): Boolean {
+//        return NetWorkUtils.isNetWorkAvailable(this)
+//    }
 }

@@ -4,6 +4,7 @@ import com.kotlin.goods.injection.module.GoodsModule
 import com.yuan.baselibrary.injection.PreComponentScope
 import com.yuan.baselibrary.injection.component.ActivityComponent
 import com.yuan.goodscenter.ui.adtivity.GoodsActivity
+import com.yuan.goodscenter.ui.fragment.GoodsDetailTabOneFragment
 import dagger.Component
 
 /*
@@ -13,5 +14,5 @@ import dagger.Component
 @Component(dependencies = arrayOf(ActivityComponent::class),modules = arrayOf(GoodsModule::class))
 interface GoodsComponent {
     fun inject(activity: GoodsActivity)
-//    fun inject(fragment: GoodsDetailTabOneFragment)
+    fun inject(fragment: GoodsDetailTabOneFragment)
 }
