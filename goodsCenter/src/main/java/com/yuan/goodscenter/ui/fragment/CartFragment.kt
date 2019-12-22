@@ -1,6 +1,5 @@
 package com.yuan.goodscenter.ui.fragment
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -39,7 +38,7 @@ class CartFragment: BaseMvpFragment<CartListPresenter>(), CartListView {
 
     override fun onSubmitCartListResult(result: Int) {
         Log.e("onSubmitCartListResult", result.toString())
-        ARouter.getInstance().build(RouterPath.OrderCenter.PATH_ORDER_CONFIRM)
+        ARouter.getInstance().build("/orderlibrary/confirm")
             .withInt(ProviderConstant.KEY_ORDER_ID,result)
             .navigation()
     }

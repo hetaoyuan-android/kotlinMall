@@ -9,9 +9,10 @@ object RouterPath {
     }
 
     //订单模块
-    class OrderCenter{
+    class OrderLibrary{
+
         companion object {
-            const val PATH_ORDER_CONFIRM = "/orderCenter/confirm"
+            const val PATH_ORDER_CONFIRM = "/orderlibrary/confirm"
         }
     }
 }
