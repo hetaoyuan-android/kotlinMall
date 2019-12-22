@@ -4,6 +4,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
+import com.kotlin.base.utils.AppPrefsUtils
+import com.kotlin.goods.common.GoodsConstant
+import com.kotlin.goods.event.UpdateCartSizeEvent
+import com.yuan.goodscenter.ui.fragment.CartFragment
 import com.yuan.goodscenter.ui.fragment.CategoryFragment
 import com.yuan.kotlinmall.R
 import com.yuan.kotlinmall.ui.fragment.HomeFragment
@@ -16,19 +22,21 @@ class MainActivity : AppCompatActivity() {
     private val mStack = Stack<Fragment>()
     private val mHomeFragment by lazy { HomeFragment() }
     private val mCategoryFragment by lazy { CategoryFragment() }
-    private val mCartFragment by lazy { HomeFragment() }
+    private val mCartFragment by lazy { CartFragment() }
     private val mMsgFragment by lazy { HomeFragment() }
     private val mMeFragment by lazy { MeFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mBottomBavBar.checkMsgBadge(false)
-        mBottomBavBar.checkCartBadge(20)
+//        mBottomBavBar.checkMsgBadge(false)
+//        mBottomBavBar.checkCartBadge(20)
 //        initView()
         initFragment()
         initBottomNav()
         changeFragment(0)
+        initObserve()
+        loadCarBadge()
 
 //        Observable.timer(2, TimeUnit.SECONDS)
 //            .observeOn(AndroidSchedulers.mainThread())
@@ -84,4 +92,19 @@ class MainActivity : AppCompatActivity() {
         mansger.commit()
     }
 
+    private fun initObserve() {
+        Bus.observe<UpdateCartSizeEvent>()
+            .subscribe {
+                loadCarBadge()
+            }.registerInBus(this)
+    }
+
+    private fun loadCarBadge() {
+        mBottomBavBar.checkCartBadge(AppPrefsUtils.getInt(GoodsConstant.SP_CART_SIZE))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Bus.unregister(this)
+    }
 }

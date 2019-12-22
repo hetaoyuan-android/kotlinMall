@@ -13,8 +13,10 @@ import com.kotlin.base.utils.YuanFenConverter
 import com.kotlin.base.widgets.BannerImageLoader
 import com.kotlin.goods.common.GoodsConstant
 import com.kotlin.goods.data.protocol.Goods
+import com.kotlin.goods.event.AddCartEvent
 import com.kotlin.goods.event.GoodsDetailImageEvent
 import com.kotlin.goods.event.SkuChangedEvent
+import com.kotlin.goods.event.UpdateCartSizeEvent
 import com.kotlin.goods.injection.component.DaggerGoodsComponent
 import com.kotlin.goods.injection.module.GoodsModule
 import com.kotlin.goods.presenter.GoodsDetailPresenter
@@ -30,6 +32,7 @@ import com.yuan.goodscenter.ui.adtivity.GoodsDetailActivity
 import kotlinx.android.synthetic.main.fragment_goods_detail_tab_one.*
 import org.jetbrains.anko.contentView
 import org.jetbrains.anko.support.v4.act
+import org.jetbrains.anko.support.v4.toast
 
 class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsDetailView {
 
@@ -94,7 +97,7 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
     }
 
     override fun onAddCartResult(result: Int) {
-
+        Bus.send(UpdateCartSizeEvent())
     }
 
     override fun onGetGoodsDetailResult(result: Goods) {
@@ -127,6 +130,21 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
                 mSkuSelectedTv.text = mSkuPop.getSelectSku() +
                 GoodsConstant.SKU_SEPARATOR + mSkuPop.getSelectCount() + "件"
             }.registerInBus(this)
+        Bus.observe<AddCartEvent>()
+            .subscribe {
+                addCart()
+            }.registerInBus(this)
+    }
+
+    private fun addCart() {
+        mCurGoods.let {
+            if (it != null) {
+                mPresenter.addCart(it.id, it.goodsDesc, it.goodsDefaultIcon, it.goodsDefaultPrice,
+                    mSkuPop.getSelectCount(),
+                    mSkuPop.getSelectSku())
+            }
+        }
+
     }
 
     override fun onDestroy() {

@@ -6,8 +6,11 @@
             android:allowBackup="true"
             android:label="godsCenter"
             android:supportsRtl="true">
-        <activity android:name=".ui.adtivity.GoodsDetailActivity"
-        android:theme="@style/AppTheme.Black">
+        <activity android:name=".ui.adtivity.CartActivity">
+        </activity>
+        <activity
+                android:name=".ui.adtivity.GoodsDetailActivity"
+                android:theme="@style/AppTheme.Black">
         </activity>
         <activity android:name=".ui.adtivity.GoodsActivity"/>
         <activity android:name="com.kotlin.goods.ui.activity.SearchGoodsActivity"/>

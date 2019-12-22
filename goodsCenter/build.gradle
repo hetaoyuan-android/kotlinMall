@@ -42,4 +42,6 @@ dependencies {
     //Dagger2
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation 'ren.qinc.numberbutton:numberbutton:0.0.1'
+    //ARouter
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }

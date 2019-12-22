@@ -97,4 +97,10 @@ dependencies {
     api 'com.eightbitlab:rxbus:1.0.2'
     //FlowLayout
     api 'com.zhy:flowlayout-lib:1.0.3'
+
+    //ARouter
+    api "com.alibaba:arouter-api:$arouter_api_version"
+
+    //BadgeView 购物车右上角的角标
+    api 'q.rorbin:badgeview:1.1.2'
 }

@@ -9,6 +9,12 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
+
 
 android {
     compileSdkVersion 28
@@ -66,4 +72,6 @@ dependencies {
     api ("com.android.support:design:28.0.0"){
         exclude group: 'com.android.support'
     }
+    //ARouter
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }

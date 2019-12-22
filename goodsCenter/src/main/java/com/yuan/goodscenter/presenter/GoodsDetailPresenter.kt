@@ -4,6 +4,7 @@ import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.goods.common.GoodsConstant
 import com.kotlin.goods.data.protocol.Goods
 import com.kotlin.goods.presenter.view.GoodsDetailView
+import com.kotlin.goods.service.CartService
 import com.kotlin.goods.service.GoodsService
 import com.yuan.baselibrary.ext.execute
 import com.yuan.baselibrary.presenter.BasePresenter
@@ -18,8 +19,8 @@ class GoodsDetailPresenter @Inject constructor() : BasePresenter<GoodsDetailView
     @Inject
     lateinit var goodsService: GoodsService
 
-//    @Inject
-//    lateinit var cartService: CartService
+    @Inject
+    lateinit var cartService: CartService
 
     /*
         获取商品详情
@@ -39,14 +40,14 @@ class GoodsDetailPresenter @Inject constructor() : BasePresenter<GoodsDetailView
      */
     fun addCart(goodsId: Int, goodsDesc: String, goodsIcon: String, goodsPrice: Long,
                            goodsCount: Int, goodsSku: String) {
-//        mView.showLoading()
-//        cartService.addCart(goodsId,goodsDesc,goodsIcon,goodsPrice,
-//                goodsCount,goodsSku).excute(object : BaseSubscriber<Int>(mView) {
-//            override fun onNext(t: Int) {
-//                AppPrefsUtils.putInt(GoodsConstant.SP_CART_SIZE,t)
-//                mView.onAddCartResult(t)
-//            }
-//        }, lifecycleProvider)
+        mView.showLoading()
+        cartService.addCart(goodsId,goodsDesc,goodsIcon,goodsPrice,
+                goodsCount,goodsSku).execute(object : BaseSubscriber<Int>(mView) {
+            override fun onNext(t: Int) {
+                AppPrefsUtils.putInt(GoodsConstant.SP_CART_SIZE,t)
+                mView.onAddCartResult(t)
+            }
+        }, lifecycleProvider)
 
     }
 
