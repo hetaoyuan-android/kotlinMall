@@ -38,7 +38,7 @@ class CartFragment: BaseMvpFragment<CartListPresenter>(), CartListView {
 
     override fun onSubmitCartListResult(result: Int) {
         Log.e("onSubmitCartListResult", result.toString())
-        ARouter.getInstance().build("/orderlibrary/confirm")
+        ARouter.getInstance().build(RouterPath.OrderLibrary.PATH_ORDER_CONFIRM)
             .withInt(ProviderConstant.KEY_ORDER_ID,result)
             .navigation()
     }

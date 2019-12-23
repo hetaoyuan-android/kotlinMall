@@ -3,6 +3,10 @@
           package="com.yuan.orderlibrary">
     
     <application>
+        <activity android:name=".ui.activity.ShipEditActivity">
+        </activity>
+        <activity android:name=".ui.activity.ShipAddressActivity">
+        </activity>
         <activity android:name=".ui.activity.OrderConfirmActivity">
         </activity>
     </application>

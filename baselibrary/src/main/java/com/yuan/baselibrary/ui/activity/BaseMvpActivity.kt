@@ -1,6 +1,7 @@
 package com.yuan.baselibrary.ui.activity
 
 import android.os.Bundle
+import com.alibaba.android.arouter.launcher.ARouter
 import com.kotlin.base.utils.NetWorkUtils
 import com.yuan.baselibrary.common.BaseApplication
 import com.yuan.baselibrary.injection.component.ActivityComponent
@@ -39,6 +40,7 @@ open abstract class BaseMvpActivity<T:BasePresenter<*>>:BaseActivity(), BaseView
         initActivityInjection()
         injectComponent()
         mLoadingDialog = ProgressLoading.create(this)
+        ARouter.getInstance().inject(this)
     }
 
     abstract fun injectComponent()
