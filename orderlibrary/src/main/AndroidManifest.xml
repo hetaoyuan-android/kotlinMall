@@ -9,6 +9,8 @@
         </activity>
         <activity android:name=".ui.activity.OrderConfirmActivity">
         </activity>
+        <activity android:name="com.kotlin.order.ui.activity.OrderActivity" />
+        <activity android:name="com.kotlin.order.ui.activity.OrderDetailActivity" />
     </application>
 
 </manifest>

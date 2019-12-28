@@ -1,6 +1,8 @@
 package com.yuan.orderlibrary.ui.activity
 
 import android.os.Bundle
+import com.kotlin.order.common.OrderConstant
+import com.kotlin.order.data.protocol.ShipAddress
 import com.kotlin.order.injection.component.DaggerOrderComponent
 import com.kotlin.order.injection.component.DaggerShipAddressComponent
 import com.kotlin.order.injection.module.OrderModule
@@ -16,6 +18,8 @@ import org.jetbrains.anko.toast
 class ShipEditActivity : BaseMvpActivity<EditShipAddressPresenter>(), EditShipAddressView {
 
 
+    private var mAddress: ShipAddress? = null
+
     override fun injectComponent() {
         DaggerShipAddressComponent.builder().activityComponent(activtyComponent).shipAddressModule(ShipAddressModule()).build().inject(this)
         mPresenter.mView = this
@@ -25,6 +29,16 @@ class ShipEditActivity : BaseMvpActivity<EditShipAddressPresenter>(), EditShipAd
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_address)
         initView()
+        initData()
+    }
+
+    private fun initData() {
+        mAddress = intent.getParcelableExtra(OrderConstant.KEY_SHIP_ADDRESS)
+        mAddress?.let {
+            mShipNameEt.setText(it.shipUserName)
+            mShipMobileEt.setText(it.shipUserMobile)
+            mShipAddressEt.setText(it.shipAddress)
+        }
     }
 
     private fun initView() {
@@ -41,17 +55,26 @@ class ShipEditActivity : BaseMvpActivity<EditShipAddressPresenter>(), EditShipAd
                 toast("地址不能为空")
                 return@onClick
             }
-            mPresenter.addShipAddress(mShipNameEt.text.toString(), mShipMobileEt.text.toString(),
-                mShipAddressEt.text.toString())
+
+            if (mAddress == null) {
+                mPresenter.addShipAddress(mShipNameEt.text.toString(), mShipMobileEt.text.toString(),
+                    mShipAddressEt.text.toString())
+            } else {
+                mAddress!!.shipUserName = mShipNameEt.text.toString()
+                mAddress!!.shipUserMobile = mShipMobileEt.text.toString()
+                mAddress!!.shipAddress = mShipAddressEt.text.toString()
+                mPresenter.editShipAddress(mAddress!!)
+            }
         }
     }
 
     override fun onAddShipAddressResult(result: Boolean) {
-
+        toast("添加地址成功")
+        finish()
     }
 
     override fun onEditShipAddressResult(result: Boolean) {
-        toast("新增成功")
+        toast("修改地址")
         finish()
     }
 }
