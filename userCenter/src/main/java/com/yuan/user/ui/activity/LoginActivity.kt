@@ -2,11 +2,13 @@ package com.yuan.user.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kotlin.user.utils.UserPrefsUtils
 import com.yuan.baselibrary.ext.enable
 import com.yuan.baselibrary.ext.onClick
 import com.yuan.baselibrary.ui.activity.BaseMvpActivity
+import com.yuan.provider.PushProvider
 import com.yuan.provider.router.RouterPath
 import com.yuan.user.R
 import com.yuan.user.data.protocol.UserInfo
@@ -26,11 +28,14 @@ import org.jetbrains.anko.toast
 @Route(path = RouterPath.UserCenter.PATH_LOGIN)
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
 
-
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(activtyComponent).userModule(UserModule()).build().inject(this)
         mPresenter.mView = this
     }
+
+    @Autowired(name = RouterPath.MessageCenter.PATH_MESSAGE_PUSH)
+    @JvmField
+    var mPushProvider:PushProvider?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +57,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
         if (v != null) {
             when(v.id) {
                 R.id.mLoginBtn ->{
-                    mPresenter.login(mMobileEt.text.toString(), mPwdEt.text.toString(), "" )
+                    mPresenter.login(mMobileEt.text.toString(), mPwdEt.text.toString(), mPushProvider!!.getPushId()?:"" )
                 }
                 R.id.mRightTv ->{startActivity<RegisterActivity>()}
 

@@ -9,6 +9,8 @@ import com.eightbitlab.rxbus.registerInBus
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.goods.common.GoodsConstant
 import com.kotlin.goods.event.UpdateCartSizeEvent
+import com.kotlin.message.ui.fragment.MessageFragment
+import com.kotlin.provider.event.MessageBadgeEvent
 import com.yuan.goodscenter.ui.fragment.CartFragment
 import com.yuan.goodscenter.ui.fragment.CategoryFragment
 import com.yuan.kotlinmall.R
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private val mHomeFragment by lazy { HomeFragment() }
     private val mCategoryFragment by lazy { CategoryFragment() }
     private val mCartFragment by lazy { CartFragment() }
-    private val mMsgFragment by lazy { HomeFragment() }
+    private val mMsgFragment by lazy { MessageFragment() }
     private val mMeFragment by lazy { MeFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +83,7 @@ class MainActivity : AppCompatActivity() {
                 changeFragment(p0)
             }
         })
+        mBottomBavBar.checkMsgBadge(false)
     }
 
     private fun changeFragment(position: Int) {
@@ -96,6 +99,13 @@ class MainActivity : AppCompatActivity() {
         Bus.observe<UpdateCartSizeEvent>()
             .subscribe {
                 loadCarBadge()
+            }.registerInBus(this)
+        Bus.observe<MessageBadgeEvent>()
+            .subscribe {
+                    t: MessageBadgeEvent ->
+                run {
+                    mBottomBavBar.checkMsgBadge(t.isVisible)
+                }
             }.registerInBus(this)
     }
 

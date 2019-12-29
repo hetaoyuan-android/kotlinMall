@@ -1,2 +1,46 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.yuan.messagecenter"/>
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.yuan.messagecenter">
+    
+    <application android:allowBackup="true"
+                 android:label="@string/app_name"
+                 android:supportsRtl="true">
+        
+        <meta-data android:name="JPUSH_APPKEY" android:value="${JPUSH_APPKEY}"
+                   tools:replace="android:value"
+        />
+        <meta-data android:name="JPUSH_CHANNEL" android:value="${JPUSH_CHANNEL}"
+                   tools:replace="android:value"
+        />
+        <receiver
+                android:name="com.kotlin.message.receiver.MessageReceiver"
+                android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION"/>
+                <action android:name="cn.jpush.android.intent.CONNECTION"/>
+                <category android:name="com.yuan.kotlinmall"/>
+            </intent-filter>
+        </receiver>
+        <service android:name=".receiver.PushService"
+                 android:enabled="true"
+                 android:exported="false"
+                 android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jiguang.user.service.action"/>
+            </intent-filter>
+        </service>
+        <receiver
+                android:name=".receiver.MyJPushMessageReceiver"
+                android:enabled="true"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE"/>
+                <category android:name="com.yuan.kotlinmall"/>
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

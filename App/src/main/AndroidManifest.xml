@@ -4,14 +4,15 @@
           package="com.yuan.kotlinmall">
 
     <application
-            android:name="com.yuan.baselibrary.common.BaseApplication"
+            android:name=".common.MainApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="kotlin"
-            tools:replace="android:label, android:theme"
+            tools:replace="android:label, android:theme, android:name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            >
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

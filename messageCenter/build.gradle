@@ -3,6 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
+
 android {
     compileSdkVersion 28
 
@@ -14,6 +20,19 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.yuan.kotlinmall",
+                JPUSH_APPKEY : "58a1864515658ef94d58c74d", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+
 
     }
 
@@ -33,4 +52,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    api 'cn.jiguang.sdk:jpush:3.5.4'  // 此处以JPush 3.5.4 版本为例。
+    api 'cn.jiguang.sdk:jcore:2.2.4'  // 此处以JCore 2.2.4 版本为例。
+
+    //Dagger2
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    //ARouter
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }
