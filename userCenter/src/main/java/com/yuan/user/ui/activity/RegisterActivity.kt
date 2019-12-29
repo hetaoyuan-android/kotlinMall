@@ -73,15 +73,6 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
             }
         }
 
-    override fun onBackPressed() {
-        val time = System.currentTimeMillis()
-        if (time - pressTime > 2000) {
-            toast("再按一次退出程序")
-            pressTime = time
-        } else {
-            AppManager.instance.exitApp(this)
-        }
-    }
 
     private fun isBtnEnable(): Boolean {
         return mMobileEt.text.isNullOrEmpty().not() &&

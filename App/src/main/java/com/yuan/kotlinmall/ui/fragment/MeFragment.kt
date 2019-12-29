@@ -22,6 +22,7 @@ import com.yuan.user.ui.activity.LoginActivity
 import com.yuan.user.ui.activity.UserInfoActivity
 import kotlinx.android.synthetic.main.fragment_me.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 class MeFragment: BaseFragment(){
 
@@ -56,7 +57,11 @@ class MeFragment: BaseFragment(){
         }
 
         mAddressTv.onClick {
-            startActivity<ShipAddressActivity>()
+            if (isLogined()) {
+                startActivity<ShipAddressActivity>()
+            } else {
+                startActivity<LoginActivity>()
+            }
         }
         mUserIconIv.onClick {
             if (isLogined()) {
@@ -75,6 +80,11 @@ class MeFragment: BaseFragment(){
         mSettingTv.onClick {
             startActivity<SettingActivity>()
         }
+
+        mShareTv.onClick {
+            toast("敬请期待.......")
+        }
+
     }
 
     override fun onStart() {

@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import me.crosswall.lib.coverflow.CoverFlow
 import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 class HomeFragment: BaseFragment() {
 
@@ -40,6 +41,9 @@ class HomeFragment: BaseFragment() {
     private fun initView() {
         mSearchEt.onClick {
             startActivity<SearchGoodsActivity>()
+        }
+        mScanIv.onClick {
+            toast("敬请期待.........")
         }
     }
 

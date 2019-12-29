@@ -11,15 +11,19 @@ import com.kotlin.goods.common.GoodsConstant
 import com.kotlin.goods.event.UpdateCartSizeEvent
 import com.kotlin.message.ui.fragment.MessageFragment
 import com.kotlin.provider.event.MessageBadgeEvent
+import com.yuan.baselibrary.common.AppManager
 import com.yuan.goodscenter.ui.fragment.CartFragment
 import com.yuan.goodscenter.ui.fragment.CategoryFragment
 import com.yuan.kotlinmall.R
 import com.yuan.kotlinmall.ui.fragment.HomeFragment
 import com.yuan.kotlinmall.ui.fragment.MeFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.toast
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    private var pressTime: Long = 0
 
     private val mStack = Stack<Fragment>()
     private val mHomeFragment by lazy { HomeFragment() }
@@ -116,5 +120,15 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Bus.unregister(this)
+    }
+
+    override fun onBackPressed() {
+        val time = System.currentTimeMillis()
+        if (time - pressTime > 2000) {
+            toast("再按一次退出程序")
+            pressTime = time
+        } else {
+            AppManager.instance.exitApp(this)
+        }
     }
 }
