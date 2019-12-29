@@ -119,10 +119,10 @@ class OrderConfirmActivity : BaseMvpActivity<OrderConfirmPresenter>(), OrderConf
 
     override fun onSubmitOrderResult(result: Boolean) {
         toast("订单提交成功")
-//        ARouter.getInstance().build(RouterPath.PaySDK.PATH_PAY)
-//            .withInt(ProviderConstant.KEY_ORDER_ID,mCurrentOrder!!.id)
-//            .withLong(ProviderConstant.KEY_ORDER_PRICE,mCurrentOrder!!.totalPrice)
-//            .navigation()
+        ARouter.getInstance().build(RouterPath.PaySDK.PATH_PAY)
+            .withInt(ProviderConstant.KEY_ORDER_ID,mCurrentOrder!!.id)
+            .withLong(ProviderConstant.KEY_ORDER_PRICE,mCurrentOrder!!.totalPrice)
+            .navigation()
         finish()
     }
 

@@ -27,8 +27,8 @@ android {
 
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
@@ -40,7 +40,9 @@ dependencies {
     }
     api project(':messageCenter')
     api project(':goodsCenter')
-    api ("com.android.support:design:28.0.0"){
+    api project(':paysdk')
+    api('com.android.support:design:28.0.0') {
         exclude group: 'com.android.support'
     }
+    implementation files('D:/android/kotlin/kotlinMall/paysdk/libs/alipaySdk-20170725.jar')
 }

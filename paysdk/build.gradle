@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
 kapt {
     arguments {
         arg("moduleName", project.getName())
     }
 }
+
 android {
     compileSdkVersion 28
 
@@ -39,12 +39,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
     //Dagger2
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     //ARouter
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
-//    api "com.alibaba:arouter-api:$arouter_api_version"
-//    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler_version"
     api project(path: ':provider')
-    api project(path:':paysdk')
 }
